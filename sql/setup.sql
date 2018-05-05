@@ -4,173 +4,134 @@ go
 
 /* ENTITIES */
 
-
 CREATE TABLE users (
-       userID VARCHAR(30),	--user-determined
+       id INT AUTO_INCREMENT,
+       password VARCHAR(20) NOT NULL,
        firstName VARCHAR(20),
        lastName VARCHAR(20),
-       age INTEGER DEFAULT -1,	--since 0 is a valid age, although I don't know what baby would make a user account
-       email VARCHAR(35),
-       phone VARCHAR(10),	--remove formatting
-       PRIMARY KEY (userID),
+       email VARCHAR(35) NOT NULL,
+       phone VARCHAR(10),
+       PRIMARY KEY (id),
        UNIQUE (email)
        );
 
 CREATE TABLE bookings (
-       bookingID VARCHAR(30),	--automatically generated (same for all subsequent IDs)
-       numTravelers INTEGER DEFAULT 1,
-       PRIMARY KEY (bookingID)
-       );
-
-CREATE TABLE locations (
-       locationID VARCHAR(30),
-       city VARCHAR(30),
-       region VARCHAR(2),		--use standard region abbrevs.
-       country VARCHAR(2) DEFAULT 'US',	--use standard country abbrevs.
-       PRIMARY KEY (locationID),
-       UNIQUE (city, region, country)
-       );
-
-CREATE TABLE accommodations (
-       accommodationID VARCHAR(30),
-       dailyCost INTEGER,
-       address VARCHAR(30),	--street address only (an accommodation is 'locatedIn' a location with city/state/country attrs.)
-       PRIMARY KEY (accommodationID)
-       );
-
-CREATE TABLE airbrb (
-       ID VARCHAR(30),
-       FOREIGN KEY (ID) REFERENCES accommodations (accommodationID)
-       );
-
-CREATE TABLE apartment (
-       ID VARCHAR(30),
-       numRooms INT,
-       kitchen BIT,	--0 if no kitchen, 1 if kitchen, NULL if unknown
-       FOREIGN KEY (ID) REFERENCES accommodations (accommodationID)
-       );
-
-CREATE TABLE hotel (
-       ID VARCHAR(30),
-       numBeds INT,
-       company VARCHAR(30),
-       FOREIGN KEY (ID) REFERENCES accommodations (accommodationID),
-       );
-
-CREATE TABLE hostel (
-       ID VARCHAR(30),
-       FOREIGN KEY (ID) REFERENCES accommodations (accommodationID)
+       id INT AUTO_INCREMENT,
+       startDate DATE NOT NULL,
+       endDate DATE,			--null for one-way transportation
+       PRIMARY KEY (id)
        );
 
 CREATE TABLE transportation (
-       transportID VARCHAR(30),
-       ticketCost INTEGER,
-       PRIMARY KEY (transportID)
+       id INT AUTO_INCREMENT,
+       fare DOUBLE NOT NULL,
+       sourceLocation INT NOT NULL,
+       destinationLocation INT NOT NULL,
+       departureTime DATETIME NOT NULL,
+       arrivalTime DATETIME NOT NULL,
+       PRIMARY KEY (id),
+       FOREIGN KEY (sourceLocation) references locations(id),
+       FOREIGN KEY (destinationLocation) references locations(id),
+       CHECK (departureTime < arrivalTime),	--TODO not sure if this is correct
+       CHECK (fare > 0)
        );
 
-CREATE TABLE bus (
-       ID VARCHAR(30),
-       busLine VARCHAR(30),
-       FOREIGN KEY (ID) REFERENCES transportation (transportID)
+/* NOTE: if we have 3 travel classes, does that mean each flight has 3 entries in the table? one for each class? is there a better way to do this? */
+CREATE TABLE flights (		--subentity of transportation
+       id INT NOT NULL,		--not sure the NOT NULL is necessary here; will figure out later, but shouldn't hurt regardless
+       airline VARCHAR(30) NOT NULL,
+       flightClass ENUM('economy', 'business', 'first'),	--allow null in case of airline without class distinctions..? maybe? I don't know
+       numSeatsRemaining INT NOT NULL, --todo: not sure if this is a good way to do this...
+       FOREIGN KEY (id) REFERENCES transportation(id)
        );
 
-CREATE TABLE cruise (
-       ID VARCHAR(30),
-       cruiseLine VARCHAR(30),
-       FOREIGN KEY (ID) REFERENCES transportation (transportID)
-       );
-
-CREATE TABLE train (
-       ID VARCHAR(30),
+CREATE TABLE trains (		--subentity of transportation
+       id INT NOT NULL,		--same as above^
        railroad VARCHAR(30),
-       FOREIGN KEY (ID) REFERENCES transportation (transportID)
+       trainClass ENUM('coach', 'business', 'first'),	--see above^
+       numSeatsRemaining INT NOT NULL,	    --todo: ayee^ 
+      FOREIGN KEY (id) REFERENCES transportation(id)
        );
 
-CREATE TABLE carRental (
-       ID VARCHAR(30),
-       rentalCompany VARCHAR(30),
-       licensePlate VARCHAR(10),
-       carSize ENUM('compact', 'mid', 'full', 'luxury'),	--user provides a preferred car size (we won't provide an option of make and model); we match their size preference with available cars from the rental company's database
-       FOREIGN KEY (ID) REFERENCES transportation (transportID),
-       UNIQUE (licensePlate)
+CREATE TABLE hotels (
+       id INT AUTO_INCREMENT,
+       dailyCost DOUBLE NOT NULL,
+       address VARCHAR(30),	--street address only
+       location INT NOT NULL,
+       PRIMARY KEY (id),
+       FOREIGN KEY (location) REFERENCES locations(id),
+       CHECK (dailyCost > 0)
+       --todo: remove assumption of infinite capacity / # of rooms..?
        );
 
-CREATE TABLE flight (
-       ID VARCHAR(30),
-       airline VARCHAR(30),
-       travelClass ENUM('economy', 'business', 'first'),
-       FOREIGN KEY (ID) REFERENCES transportation (transportID)
+CREATE TABLE locations (
+       id INT AUTO_INCREMENT,
+       city VARCHAR(30) NOT NULL,
+       region VARCHAR(2),		--use standard region abbrevs.
+       country VARCHAR(2) DEFAULT 'US',	--use standard country abbrevs.
+       PRIMARY KEY (id),
+       UNIQUE (city, region, country)
        );
 
+CREATE TABLE attractions (
+       id INT AUTO_INCREMENT,
+       location INT NOT NULL, --might not be necessary given the 'featuresAttraction' relationship, but if we scrap that table this will suffice for queries (it's more of an efficiency thing than a necessity to have the separate table)
+       attractionName VARCHAR(30) NOT NULL,
+       image1 VARCHAR(30) DEFAULT 'tmp.jpg',	--we'll need a folder of images
+       image2 VARCHAR(30) DEFAULT 'tmp.jpg',
+       image3 VARCHAR(30) DEFAULT 'tmp.jpg',
+       PRIMARY KEY (id),
+       FOREIGN KEY (location) REFERENCES locations(id)
+       );
+       
 CREATE TABLE payments (
-       paymentID VARCHAR(30),
-       amount INTEGER,
+       id INT AUTO_INCREMENT,
+       amount DOUBLE NOT NULL,	--TODO: somehow make sure this is sum of travel+hotel costs + "service fee" for using our travel site (incentive: save money by booking a package of things)
        paymentType ENUM('debit', 'credit', 'cash', 'check'),
-       PRIMARY KEY (paymentID)
+       --todo: add transactionDate here? instead of as an attribute of the 'books' relationship?
+       PRIMARY KEY (id),
+       CHECK (amount > 0)
        );
 
 CREATE TABLE reviews (
-       reviewID VARCHAR(30),
-       numStars INTEGER,
+       id INT AUTO_INCREMENT,
+       numStars INT NOT NULL,
        text VARCHAR(1000),
-       PRIMARY KEY (reviewID),
+       author INT NOT NULL,
+       PRIMARY KEY (id),
+       FOREIGN KEY (author) REFERENCES users(id),
        CHECK (numStars >= 1 AND numStars <= 5)
        );
 
 
-/* RELATIONS */
 
+/* RELATIONSHIPS */
 
-CREATE TABLE makesReservation (
-       userID VARCHAR(30),
-       bookingID VARCHAR(30),
+/* don't need writesReview, just put an author field in reviews */
+
+CREATE TABLE books (
+       userID INT,
+       bookingID INT,
+       transactionDate DATETIME NOT NULL, --todo: move this to payment??
        PRIMARY KEY (userID, bookingID),
-       FOREIGN KEY (userID) REFERENCES users (userID),
-       FOREIGN KEY (bookingID) REFERENCES bookings (bookingID)
+       FOREIGN KEY (userID) REFERENCES users(id),
+       FOREIGN KEY (bookingID) REFERENCES bookings(id)
        );
 
-CREATE TABLE travels (
-       bookingID VARCHAR(30),
-       transportID VARCHAR(30),
-       sourceID VARCHAR(30),
-       destinationID VARCHAR(30),
-       departure DATE,
-       arrival DATE,
-       PRIMARY KEY (bookingID, transportID, sourceID, destinationID),
-       FOREIGN KEY (bookingID) REFERENCES bookings (bookingID),
-       FOREIGN KEY (transportID) REFERENCES transportation (transportID),
-       FOREIGN KEY (sourceID) REFERENCES locations (locationID),
-       FOREIGN KEY (destinationID) REFERENCES locations (locationID)
+CREATE TABLE requiresPayment (	--todo: lol rename this probably..
+       bookingID INT,
+       paymentID INT,
+       PRIMARY KEY (bookingID, paymentID),
+       FOREIGN KEY (bookingID) REFERENCES bookings(id),
+       FOREIGN KEY (paymentID) REFERENCES payments(id)
        );
 
-CREATE TABLE writes (
-       userID VARCHAR(30),
-       reviewID VARCHAR(30),
-       PRIMARY KEY (userID, reviewID),
-       FOREIGN KEY (userID) REFERENCES users (userID),
-       FOREIGN KEY (reviewID) REFERENCES reviews (reviewID)
-       );
+/* don't need headedTo/headedFrom/locatedIn, just put location fields in transportation and hotels */
 
-CREATE TABLE pays (
-       userID VARCHAR(30),
-       paymentID VARCHAR(30),
-       PRIMARY KEY (userID, paymentID),
-       FOREIGN KEY (userID) REFERENCES users (userID),
-       FOREIGN KEY (payentID) REFERENCES payments (paymentID)
-       );
-
-CREATE TABLE staysAt (
-       bookingID VARCHAR(30),
-       accommodationID VARCHAR(30),
-       PRIMARY KEY (bookingID, accommodationID),
-       FOREIGN KEY (bookingID) REFERENCES bookings (bookingID),
-       FOREIGN KEY (accommodationID) REFERENCES accommodations (accommodationID)
-       );
-
-CREATE TABLE locatedIn (
-       accommodationID VARCHAR(30),
-       locationID VARCHAR(30),
-       PRIMARY KEY (accommodationID, locationID),
-       FOREIGN KEY (accommodationID) REFERENCES accommodationss (accommodationID),
-       FOREIGN KEY (locationID) REFERENCES locations (locationID)
+CREATE TABLE featuresAttractions (
+       locationID INT,
+       attractionID INT,
+       PRIMARY KEY (locationID, attractionID),
+       FOREIGN KEY (locationID) REFERENCES locations(id),
+       FOREIGN KEY (attractionID) REFERENCES attractions(id)
        );
