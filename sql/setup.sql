@@ -5,12 +5,10 @@ go
 /* ENTITIES */
 
 CREATE TABLE user (
-       id INT NOT NULL AUTO_INCREMENT,
        username VARCHAR(40),
        email VARCHAR(35) NOT NULL,
        password VARCHAR(20) NOT NULL,
-       PRIMARY KEY (id),
-       UNIQUE (email)
+       PRIMARY KEY (email)
        );
 
 CREATE TABLE location (
@@ -18,6 +16,7 @@ CREATE TABLE location (
        city VARCHAR(30) NOT NULL,
        region VARCHAR(2),
        country VARCHAR(2) DEFAULT 'US',
+       image VARCHAR(200) DEFAULT 'tmp.jpg',
        PRIMARY KEY (id),
        UNIQUE (city, region, country)
        );
@@ -28,8 +27,6 @@ CREATE TABLE booking (
        PRIMARY KEY (id)
        );       
 
---departureTime DATETIME NOT NULL,
---arrivalTime DATETIME NOT NULL,
 CREATE TABLE transportation (
        id INT NOT NULL,
        sourceLocation INT NOT NULL,
@@ -61,7 +58,6 @@ CREATE TABLE train (
        FOREIGN KEY (id) REFERENCES transportation(id)
        );
 
---note: assumes hotel has infinite capacity
 CREATE TABLE hotel (
        id INT NOT NULL,
        startDate DATE NOT NULL,
@@ -74,7 +70,7 @@ CREATE TABLE hotel (
        );
 
 CREATE TABLE payment (
-       id INT AUTO_INCREMENT,
+       id INT NOT NULL AUTO_INCREMENT,
        amount DECIMAL(6,2) NOT NULL,
        paymentType ENUM('debit', 'credit'),
        cardNo VARCHAR(16) NOT NULL,
@@ -82,17 +78,17 @@ CREATE TABLE payment (
        CHECK (amount > 0)
        );
 
-CREATE TABLE attraction (
-       id INT AUTO_INCREMENT,
+CREATE TABLE attractions (
+       id INT NOT NULL AUTO_INCREMENT,
        location INT NOT NULL,
        attractionName VARCHAR(30) NOT NULL,
-       image1 VARCHAR(30) DEFAULT 'tmp.jpg',
-       image2 VARCHAR(30) DEFAULT 'tmp.jpg',
-       image3 VARCHAR(30) DEFAULT 'tmp.jpg',
+       attractionDescription VARCHAR(1000),
+       image VARCHAR(200) DEFAULT 'tmp.jpg',
        PRIMARY KEY (id),
-       FOREIGN KEY (location) REFERENCES locations(id)
+       FOREIGN KEY (location) REFERENCES location(id)
        );
-       
+
+/*
 CREATE TABLE reviews (
        id INT AUTO_INCREMENT,
        numStars INT NOT NULL,
@@ -102,6 +98,8 @@ CREATE TABLE reviews (
        FOREIGN KEY (author) REFERENCES users(id),
        CHECK (numStars >= 1 AND numStars <= 5)
        );
+*/
+
 
 
 
@@ -109,31 +107,23 @@ CREATE TABLE reviews (
 
  --for transactionDate: or DATETIME --p.s. can omit if we don't display it in purchase history
 CREATE TABLE purchase (
-       userID INT,
+       userID VARCHAR(35),
        bookingID INT,
        paymentID INT,
-       transactionDate DATE NOT NULL,
        PRIMARY KEY (userID, bookingID, paymentID),
-       FOREIGN KEY (userID) REFERENCES user(id),
+       FOREIGN KEY (userID) REFERENCES user(email),
        FOREIGN KEY (bookingID) REFERENCES booking(id),
        FOREIGN KEY (paymentID) REFERENCES payment(id)
        );
 
-/* don't need headedTo/headedFrom/locatedIn, just put location fields in transportation and hotels */
-
-CREATE TABLE featuresAttractions (
-       locationID INT,
-       attractionID INT,
-       PRIMARY KEY (locationID, attractionID),
-       FOREIGN KEY (locationID) REFERENCES locations(id),
-       FOREIGN KEY (attractionID) REFERENCES attractions(id)
-       );
 
 
-INSERT INTO location VALUES (1, 'nyc', 'ny', 'us');
-INSERT INTO location VALUES (2, 'sf', 'ca', 'us');
+/* SAMPLE QUERY THINGS */
+
+INSERT INTO location VALUES (1, 'nyc', 'ny', 'us', 't.jpg');
+INSERT INTO location VALUES (2, 'sf', 'ca', 'us', 't.jpg');
 INSERT INTO booking VALUES (1, '2018-05-27');
-INSERT INTO transportation VALUES (1, 1, 2, 330.45, 440.23, 605.88, 40, 20, 10);
+INSERT INTO transportation VALUES (1, 1, 2, '2018-05-27', '21:00:00', 330.45, 440.23, 605.88, 40, 20, 10);
 INSERT INTO flight VALUES (1, 'delta');
 
 SELECT id FROM location WHERE city = 'city1' AND state = '..'; --assign the result, which is an INT, to a variable to this as src
