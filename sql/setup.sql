@@ -27,6 +27,8 @@ CREATE TABLE booking (
        PRIMARY KEY (id)
        );       
 
+# transportation to location: many to one
+# transportation to booking: one to one
 CREATE TABLE transportation (
        id INT NOT NULL,
        sourceLocation INT NOT NULL,
@@ -42,22 +44,25 @@ CREATE TABLE transportation (
        FOREIGN KEY (id) REFERENCES booking(id),
        FOREIGN KEY (sourceLocation) REFERENCES location(id),
        FOREIGN KEY (destinationLocation) REFERENCES location(id),
-       CHECK (departureTime < arrivalTime),
        CHECK (fare > 0)
        );
 
+# flight to transportation: one to one
 CREATE TABLE flight (
        id INT NOT NULL,
        airline VARCHAR(30) NOT NULL,
        FOREIGN KEY (id) REFERENCES transportation(id)
        );
 
+# train to transportation: one to one
 CREATE TABLE train (
        id INT NOT NULL,
        railroad VARCHAR(30),
        FOREIGN KEY (id) REFERENCES transportation(id)
        );
 
+# flight to location: many to one
+# flight to booking: one to one
 CREATE TABLE hotel (
        id INT NOT NULL,
        startDate DATE NOT NULL,
@@ -78,6 +83,7 @@ CREATE TABLE payment (
        CHECK (amount > 0)
        );
 
+# attractions to location: one to one
 CREATE TABLE attractions (
        id INT NOT NULL AUTO_INCREMENT,
        location INT NOT NULL,
@@ -104,6 +110,10 @@ CREATE TABLE reviews (
 
 
 /* RELATIONSHIPS */
+
+# purchase to user: many to one
+# purchase to booking: one to one
+# purchase to payment: one to one
 
  --for transactionDate: or DATETIME --p.s. can omit if we don't display it in purchase history
 CREATE TABLE purchase (
