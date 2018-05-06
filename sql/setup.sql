@@ -5,16 +5,15 @@ go
 /* ENTITIES */
 
 CREATE TABLE users (
-       id INT AUTO_INCREMENT,
-       password VARCHAR(20) NOT NULL,
-       firstName VARCHAR(20),
-       lastName VARCHAR(20),
+       id INT AUTO_INCREMENT, --is NOT NULL necessary? todo: add just in case
+       username VARCHAR(40),
        email VARCHAR(35) NOT NULL,
-       phone VARCHAR(10),
+       password VARCHAR(20) NOT NULL,
        PRIMARY KEY (id),
        UNIQUE (email)
        );
 
+--todo: why do I even have this table (below)
 CREATE TABLE bookings (
        id INT AUTO_INCREMENT,
        startDate DATE NOT NULL,
@@ -27,8 +26,8 @@ CREATE TABLE transportation (
        fare DOUBLE NOT NULL,
        sourceLocation INT NOT NULL,
        destinationLocation INT NOT NULL,
-       departureTime DATETIME NOT NULL,
-       arrivalTime DATETIME NOT NULL,
+       --departureTime DATETIME NOT NULL, --ONLY FOR CHAINED..?? figure out later
+       --arrivalTime DATETIME NOT NULL,
        PRIMARY KEY (id),
        FOREIGN KEY (sourceLocation) references locations(id),
        FOREIGN KEY (destinationLocation) references locations(id),
@@ -40,16 +39,20 @@ CREATE TABLE transportation (
 CREATE TABLE flights (		--subentity of transportation
        id INT NOT NULL,		--not sure the NOT NULL is necessary here; will figure out later, but shouldn't hurt regardless
        airline VARCHAR(30) NOT NULL,
-       flightClass ENUM('economy', 'business', 'first'),	--allow null in case of airline without class distinctions..? maybe? I don't know
-       numSeatsRemaining INT NOT NULL, --todo: not sure if this is a good way to do this...
+       --flightClass ENUM('economy', 'business', 'first'),
+       numSeatsRemainingEconomy INT NOT NULL,
+       numSeatsRemainingBusiness INT NOT NULL,
+       numSeatsRemainingFirst INT NOT NULL,
        FOREIGN KEY (id) REFERENCES transportation(id)
        );
 
 CREATE TABLE trains (		--subentity of transportation
        id INT NOT NULL,		--same as above^
        railroad VARCHAR(30),
-       trainClass ENUM('coach', 'business', 'first'),	--see above^
-       numSeatsRemaining INT NOT NULL,	    --todo: ayee^ 
+       --trainClass ENUM('coach', 'business', 'first'),	--see above^
+       numSeatsRemainingCoach INT NOT NULL,
+       numSeatsRemainingBusiness INT NOT NULL,
+       numSeatsRemainingFirst INT NOT NULL,
       FOREIGN KEY (id) REFERENCES transportation(id)
        );
 
