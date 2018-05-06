@@ -34,6 +34,8 @@ CREATE TABLE transportation (
        id INT NOT NULL,
        sourceLocation INT NOT NULL,
        destinationLocation INT NOT NULL,
+       startDate DATE NOT NULL,
+       departureTime TIME NOT NULL,
        fareEconomy DECIMAL(6,2) NOT NULL,
        fareBusiness DECIMAL(6,2) NOT NULL,
        fareFirst DECIMAL(6,2) NOT NULL,
@@ -62,6 +64,7 @@ CREATE TABLE train (
 --note: assumes hotel has infinite capacity
 CREATE TABLE hotel (
        id INT NOT NULL,
+       startDate DATE NOT NULL,
        dailyCost DECIMAL(6,2) NOT NULL,
        address VARCHAR(30),
        location INT NOT NULL,
@@ -133,4 +136,8 @@ INSERT INTO booking VALUES (1, '2018-05-27');
 INSERT INTO transportation VALUES (1, 1, 2, 330.45, 440.23, 605.88, 40, 20, 10);
 INSERT INTO flight VALUES (1, 'delta');
 
-SELECT 
+SELECT id FROM location WHERE city = 'city1' AND state = '..'; --assign the result, which is an INT, to a variable to this as src
+SELECT id FROM location WHERE city = 'city2' AND state = '..'; --assign as dest
+--if class = economy: (in the front-end dropdown)
+SELECT id, fareEconomy, departureTime FROM transportation WHERE sourceLocation = src[INT] AND destinationLocation = dest[INT] AND startDate = 'yyyy-mm-dd' AND numSeatsRemainingEconomy > 0; --assign the result for id, which is another INT, to a variable flightID (or whatever) // display fareEconomy and departureTime on "cards" on website
+SELECT airline FROM flight WHERE id=flightID[INT] --also display the airlines on the "cards"
