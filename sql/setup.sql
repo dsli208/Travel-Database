@@ -11,6 +11,17 @@ CREATE TABLE user (
        PRIMARY KEY (email)
        );
 
+CREATE TABLE review (
+       id INT NOT NULL AUTO_INCREMENT,
+       numStars INT NOT NULL,
+       detailedReview VARCHAR(1000),
+       submissionDate DATETIME NOT NULL,
+       author INT NOT NULL,
+       PRIMARY KEY (id),
+       FOREIGN KEY (author) REFERENCES user(id),
+       CHECK (numStars >= 1 AND numStars <= 5)
+       );
+
 CREATE TABLE location (
        id INT NOT NULL AUTO_INCREMENT,
        city VARCHAR(30) NOT NULL,
