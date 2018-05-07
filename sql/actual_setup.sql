@@ -44,10 +44,10 @@ CREATE TABLE train (
        );
 
 CREATE TABLE hotel (
-       startDate DATE NOT NULL,
        dailyCost DECIMAL(6,2) NOT NULL,
        address VARCHAR(30),
        city VARCHAR(30)
+       companyName VARCHAR(30),
        );
 
 CREATE TABLE payment (
