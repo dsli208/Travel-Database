@@ -1,4 +1,4 @@
-INSERT INTO travellite_user VALUES (
+--INSERT INTO travellite_user VALUES (
 
 INSERT INTO travellite_location VALUES (1, 'New York City', 'NY', 'NewYorkCity.jpg');
 INSERT INTO travellite_location VALUES (2, 'Chicago', 'IL', 'Chicago.jpg');
@@ -7,17 +7,22 @@ INSERT INTO travellite_location VALUES (4, 'Boston', 'MA', 'Boston.jpg');
 INSERT INTO travellite_location VALUES (5, 'Las Vegas', 'NV', 'LasVegas.jpg');
 INSERT INTO travellite_location VALUES (6, 'Atlanta', 'GA', 'Atlanta.jpg');
 
-INSERT INTO travellite_flight VALUES (1, 'Delta', 'New York City', 'Los Angeles', '2018-05-29', '15:30:00', 300.97, 503.22, 773.48, 40, 12, 2);
-INSERT INTO travellite_flight VALUES (2, 'United', 'New York City', 'Los Angeles', '2018-05-29', '19:00:00', 330.97, 573.22, 803.48, 35, 10, 4);
-INSERT INTO travellite_flight VALUES (3, 'Delta', 'Boston', 'Los Angeles', '2018-12-25', '5:30:00', 200.97, 403.12, 533.48, 50, 16, 8);
---INSERT INTO travellite_flight VALUES (1, 'Delta', 'New York City', 'Los Angeles', '2018-05-29', '15:30:00', 300.97, 503.22, 573.48, 40, 12, 2);
---INSERT INTO travellite_flight VALUES (1, 'Delta', 'New York City', 'Los Angeles', '2018-05-29', '15:30:00', 300.97, 503.22, 573.48, 40, 12, 2);
+INSERT INTO travellite_flight VALUES (1, 'Delta Air Lines', 'New York City', 'Los Angeles', '2018-05-29', '15:30:00', 300.97, 503.22, 773.48, 40, 12, 2);
+INSERT INTO travellite_flight VALUES (2, 'JetBlue', 'New York City', 'Los Angeles', '2018-05-29', '19:00:00', 330.97, 573.22, 803.48, 35, 10, 4);
+INSERT INTO travellite_flight VALUES (3, 'Delta Air Lines', 'Boston', 'Los Angeles', '2018-12-25', '5:30:00', 200.97, 403.12, 533.48, 50, 16, 8);
+INSERT INTO travellite_flight VALUES (4, 'American Airlines', 'Las Vegas', 'Los Angeles', '2018-08-02', '19:45:00', 200.45, 403.22, 900.08, 40, 6, 10);
+INSERT INTO travellite_flight VALUES (5, 'American Airlines', 'Atlanta', 'Chicago', '2018-07-16', '03:15:00', 250.97, 503.22, 573.48, 40, 10, 3);
+INSERT INTO travellite_flight VALUES (6, 'Delta Air Lines', 'Atlanta', 'Chicago', '2018-07-16', '09:20:00', 300.88, 403.35, 619.99, 30, 9, 6);
 
-INSERT INTO travellite_train VALUES (
+INSERT INTO travellite_train VALUES (1, 'Amtrak', 'New York City', 'Boston', '2018-05-29', '15:30:00', 103.90, 203.22, 273.48, 240, 112, 53);
+INSERT INTO travellite_train VALUES (2, 'Amtrak', 'New York City', 'Boston', '2018-06-04', '15:30:00', 83.90, 128.14, 203.43, 312, 362, 62);
+INSERT INTO travellite_train VALUES (3, 'Norfolk Southern', 'New York City', 'Boston', '2018-06-04', '12:30:00', 53.90, 100.54, 183.10, 412, 62, 20);
+INSERT INTO travellite_train VALUES (4, 'Union Pacific', 'Las Vegas', 'Los Angeles', '2018-08-02', '19:45:00', 200.45, 403.22, 900.08, 40, 6, 10);
 
-INSERT INTO travellite_hotel VALUES (
+INSERT INTO travellite_hotel VALUES (1, 239.99, 'West 46th Street and Broadway', 'New York City', 'NY Marriott Marquis');
+INSERT INTO travellite_hotel VALUES (1, 202.00, 'East 94th and 2nd Ave.', 'New York City', 'Marmara Manhattan Hotel');
 
-INSERT INTO travellite_payment VALUES (
+--INSERT INTO travellite_payment VALUES (
 
 INSERT INTO travellite_attraction VALUES (1, 'New York City', 'Empire State Building', 'todo', 'NewYorkCity1.jpg');
 INSERT INTO travellite_attraction VALUES (2, 'New York City', 'World Trade Center', 'todo', 'NewYorkCity2.jpg');
@@ -38,6 +43,5 @@ INSERT INTO travellite_attraction VALUES (16, 'Atlanta', 'World of Coca Cola', '
 INSERT INTO travellite_attraction VALUES (17, 'Atlanta', 'CNN Center', 'todo', 'Atlanta2.jpg');
 INSERT INTO travellite_attraction VALUES (18, 'Atlanta', 'Olympic Park', 'todo', 'Atlanta3.jpg');
 
-
-INSERT INTO travellite_history VALUES (
+--INSERT INTO travellite_history VALUES (
 
