@@ -84,7 +84,7 @@ CREATE TABLE payment (
        );
 
 # attractions to location: one to one
-CREATE TABLE attractions (
+CREATE TABLE attraction (
        id INT NOT NULL AUTO_INCREMENT,
        location INT NOT NULL,
        attractionName VARCHAR(30) NOT NULL,
@@ -93,19 +93,6 @@ CREATE TABLE attractions (
        PRIMARY KEY (id),
        FOREIGN KEY (location) REFERENCES location(id)
        );
-
-/*
-CREATE TABLE reviews (
-       id INT AUTO_INCREMENT,
-       numStars INT NOT NULL,
-       text VARCHAR(1000),
-       author INT NOT NULL,
-       PRIMARY KEY (id),
-       FOREIGN KEY (author) REFERENCES users(id),
-       CHECK (numStars >= 1 AND numStars <= 5)
-       );
-*/
-
 
 
 
@@ -130,7 +117,7 @@ CREATE TABLE purchase (
 
 /* SAMPLE QUERY THINGS */
 
-INSERT INTO location VALUES (1, 'nyc', 'ny', 'us', 't.jpg');
+INSERT INTO travellite_location VALUES (1, 'nyc', 'ny', 'us', 't.jpg');
 INSERT INTO location VALUES (2, 'sf', 'ca', 'us', 't.jpg');
 INSERT INTO booking VALUES (1, '2018-05-27');
 INSERT INTO transportation VALUES (1, 1, 2, '2018-05-27', '21:00:00', 330.45, 440.23, 605.88, 40, 20, 10);
