@@ -14,9 +14,8 @@ CREATE TABLE user (
 CREATE TABLE location (
        id INT NOT NULL AUTO_INCREMENT,
        city VARCHAR(30) NOT NULL,
-       region VARCHAR(2),
-       country VARCHAR(2) DEFAULT 'US',
-       image VARCHAR(200) DEFAULT 'tmp.jpg',
+       region VARCHAR(2) NOT NULL,
+       country VARCHAR(2) NOT NULL DEFAULT 'US',
        PRIMARY KEY (id),
        UNIQUE (city, region, country)
        );
@@ -27,14 +26,11 @@ CREATE TABLE booking (
        PRIMARY KEY (id)
        );       
 
-# transportation to location: many to one
-# transportation to booking: one to one
 CREATE TABLE transportation (
        id INT NOT NULL,
+       departureTime TIME NOT NULL,
        sourceLocation INT NOT NULL,
        destinationLocation INT NOT NULL,
-       startDate DATE NOT NULL,
-       departureTime TIME NOT NULL,
        fareEconomy DECIMAL(6,2) NOT NULL,
        fareBusiness DECIMAL(6,2) NOT NULL,
        fareFirst DECIMAL(6,2) NOT NULL,
@@ -47,25 +43,21 @@ CREATE TABLE transportation (
        CHECK (fare > 0)
        );
 
-# flight to transportation: one to one
 CREATE TABLE flight (
        id INT NOT NULL,
        airline VARCHAR(30) NOT NULL,
        FOREIGN KEY (id) REFERENCES transportation(id)
        );
 
-# train to transportation: one to one
 CREATE TABLE train (
        id INT NOT NULL,
        railroad VARCHAR(30),
        FOREIGN KEY (id) REFERENCES transportation(id)
        );
 
-# flight to location: many to one
-# flight to booking: one to one
 CREATE TABLE hotel (
        id INT NOT NULL,
-       startDate DATE NOT NULL,
+       endDate DATE NOT NULL,
        dailyCost DECIMAL(6,2) NOT NULL,
        address VARCHAR(30),
        location INT NOT NULL,
@@ -83,13 +75,12 @@ CREATE TABLE payment (
        CHECK (amount > 0)
        );
 
-# attractions to location: one to one
 CREATE TABLE attraction (
        id INT NOT NULL AUTO_INCREMENT,
        location INT NOT NULL,
        attractionName VARCHAR(30) NOT NULL,
        attractionDescription VARCHAR(1000),
-       image VARCHAR(200) DEFAULT 'tmp.jpg',
+       image VARCHAR(200) NOT NULL DEFAULT 'tmp.jpg',
        PRIMARY KEY (id),
        FOREIGN KEY (location) REFERENCES location(id)
        );
@@ -98,33 +89,13 @@ CREATE TABLE attraction (
 
 /* RELATIONSHIPS */
 
-# purchase to user: many to one
-# purchase to booking: one to one
-# purchase to payment: one to one
-
- --for transactionDate: or DATETIME --p.s. can omit if we don't display it in purchase history
 CREATE TABLE purchase (
        userID VARCHAR(35),
        bookingID INT,
        paymentID INT,
+       transactionDate DATETIME,
        PRIMARY KEY (userID, bookingID, paymentID),
        FOREIGN KEY (userID) REFERENCES user(email),
        FOREIGN KEY (bookingID) REFERENCES booking(id),
        FOREIGN KEY (paymentID) REFERENCES payment(id)
        );
-
-
-
-/* SAMPLE QUERY THINGS */
-
-INSERT INTO travellite_location VALUES (1, 'nyc', 'ny', 'us', 't.jpg');
-INSERT INTO location VALUES (2, 'sf', 'ca', 'us', 't.jpg');
-INSERT INTO booking VALUES (1, '2018-05-27');
-INSERT INTO transportation VALUES (1, 1, 2, '2018-05-27', '21:00:00', 330.45, 440.23, 605.88, 40, 20, 10);
-INSERT INTO flight VALUES (1, 'delta');
-
-SELECT id FROM location WHERE city = 'city1' AND state = '..'; --assign the result, which is an INT, to a variable to this as src
-SELECT id FROM location WHERE city = 'city2' AND state = '..'; --assign as dest
---if class = economy: (in the front-end dropdown)
-SELECT id, fareEconomy, departureTime FROM transportation WHERE sourceLocation = src[INT] AND destinationLocation = dest[INT] AND startDate = 'yyyy-mm-dd' AND numSeatsRemainingEconomy > 0; --assign the result for id, which is another INT, to a variable flightID (or whatever) // display fareEconomy and departureTime on "cards" on website
-SELECT airline FROM flight WHERE id=flightID[INT] --also display the airlines on the "cards"
