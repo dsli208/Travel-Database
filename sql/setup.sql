@@ -5,8 +5,8 @@ go
 /* ENTITIES */
 
 CREATE TABLE user (
-       username VARCHAR(40),
        email VARCHAR(35) NOT NULL,
+       username VARCHAR(40),
        password VARCHAR(20) NOT NULL,
        PRIMARY KEY (email)
        );
@@ -16,9 +16,9 @@ CREATE TABLE review (
        numStars INT NOT NULL,
        detailedReview VARCHAR(1000),
        submissionDate DATETIME NOT NULL,
-       author INT NOT NULL,
+       author VARCHAR(35) NOT NULL,
        PRIMARY KEY (id),
-       FOREIGN KEY (author) REFERENCES user(id),
+       FOREIGN KEY (author) REFERENCES user(email),
        CHECK (numStars >= 1 AND numStars <= 5)
        );
 
@@ -89,8 +89,8 @@ CREATE TABLE payment (
 CREATE TABLE attraction (
        id INT NOT NULL AUTO_INCREMENT,
        location INT NOT NULL,
-       attractionName VARCHAR(30) NOT NULL,
-       attractionDescription VARCHAR(1000),
+       name VARCHAR(30) NOT NULL,
+       description VARCHAR(1000),
        image VARCHAR(200) NOT NULL DEFAULT 'tmp.jpg',
        PRIMARY KEY (id),
        FOREIGN KEY (location) REFERENCES location(id)
