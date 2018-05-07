@@ -9,6 +9,15 @@ CREATE TABLE user (
        PRIMARY KEY (email)
        );
 
+CREATE TABLE review (
+       numStars INT NOT NULL,
+       detailedReview VARCHAR(1000),
+       submissionDate DATETIME, --optional: timestamp
+       author VARCHAR(35) NOT NULL, --optional: display author name (but don't actually associate with user table using a foreign key)
+       PRIMARY KEY (id),
+       CHECK (numStars >= 1 AND numStars <= 5) --I guess this could be removed too if we only ever insert a value in range [1,5]
+       );
+
 CREATE TABLE location (
        city VARCHAR(30) NOT NULL,
        region VARCHAR(2),
