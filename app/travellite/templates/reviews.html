@@ -7,50 +7,61 @@
     <div class="section no-pad-bot">
       <div class="container">
         <form action="" method="POST">
-          {% csrf_token %}
-        <h2 class="header center teal-text text-lighten-2">Explore new places</h2>
+        {% csrf_token %}
         <div class="row center">
-          <h5 class="header col s12 light">Where will you go next?</h5>
-          <div class="input-field col l11 s11">
-            <i class="material-icons prefix">location_on</i>
-            <input type="text" name="location" id="autocomplete-input" class="autocomplete">
-            <label for="autocomplete-input">Next Destination</label>
-          </div>
-          <div class="input-field col l1 s1">
-            <button class="btn waves-effect waves-light" type="submit">
-              <i class="large material-icons">search</i>
-            </button>
-          </div>
+          <h5 class="header col s12 light">Review our service</h5>
+        <div class="input-field col l9 s12">
+          <i class="material-icons prefix">rate_review</i>
+          <textarea id="textarea1" name="review" class="materialize-textarea"></textarea>
+          <label for="textarea1">Review</label>
         </div>
+        <div class="input-field col l3 s12">
+          <label></label>
+          <select name= "rating" class="browser-default">
+            <option value="" disabled selected>Rating</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        </div>
+        {% if request.session.current_user %}
+        <div class="row center">
+          <button class="btn waves-effect waves-light" style="width: 300px" type="submit">
+              Submit
+          </button>
+        </div>
+        {% else %}
+        <div class="row center">
+          <button disabled class="btn waves-effect waves-light" style="width: 300px" type="submit">
+              Submit
+          </button>
+        </div>
+        {% endif %}
         </form>
-        </div>
+
         <br><br>
 
       </div>
     </div>
-  
-  {% if results %}
-  <div class="container">
-  <center><h5 class="header col s12 light">{{ location.0.city }}</h5></center>
-    <div class="row center">
-        {% for obj in some_list %}
-        <div class="col l4 m4 s12">
-          <div class="card teal lighten-2">
-            <div><img src="{% static 'images/' %}{{obj.image}}" 
-             width="80%" alt="Card one"></div>
-            <div class="card-content white-text">
-              <span class="card-title">{{obj.attractionName}}</span>
-              <p>{{obj.attractionDescription}}</p>
-            </div>
+  </div>
 
-<!--             <div class="card-action">
-              <a href="#">Book Now</a>
-            </div> -->
-          </div>
+  {% if results %}
+  <div class="row center">
+      <div class="col s12 m12">
+        {% for obj in some_list %}
+          <div class="card teal lighten-2">
+            <div class="card-content white-text">
+              <span class="card-title">{{obj.author}} says...</span>
+              <p>Ratings: {{obj.rating}} | {{obj.submissionDate}}</p>
+              <p>{{obj.review}}</p>
+            </div>
           </div>
         {% endfor %}
+      </div>
     </div> 
-  </div>
   {% else %}
   <div class="parallax-container valign-wrapper">
     <div class="section no-pad-bot">

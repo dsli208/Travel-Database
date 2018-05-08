@@ -20,10 +20,11 @@
         <li><a href="/hotels">Hotels</a></li>
         <li><a href="/trains">Trains</a></li>
         <li><a href="/explore">Explore</a></li>
+        <li><a href="/reviews">Review</a></li>
         <!-- Dropdown Trigger -->
 
         <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>My Account</a>
-        {% if session %}        
+        {% if request.session.current_user %}        
         <ul id='dropdown1' class='dropdown-content'>
           <li><a href="/account">Settings</a></li>
           <li><a href="/logout">Log Out</a></li>
@@ -44,8 +45,9 @@
         <li><a href="/hotels">Hotels</a></li>
         <li><a href="/trains">Trains</a></li>
         <li><a href="/explore">Explore</a></li>
+        <li><a href="/reviews">Review</a></li>
         <li class="divider" tabindex="-1"></li>
-        {% if session %}        
+        {% if request.session.current_user %}        
         <li><a href="/account">Settings</a></li>
         <li><a href="/logout">Log Out</a></li>
         {% else %}
@@ -90,8 +92,10 @@
   <script>
     $('.dropdown-trigger').dropdown();
 
+    M.textareaAutoResize($('#textarea1'));
+      
     $('.datepicker').datepicker({
-      format: 'ddd mm/dd',
+      format: 'yyyy-mm-dd',
        selectMonths: true, // Creates a dropdown to control month
         selectYears: 15, // Creates a dropdown of 15 years to control year,
         today: 'Today',
@@ -103,7 +107,8 @@
 
     $('input.autocomplete').autocomplete({
       data: {
-        "New York, NY": null,
+        "New York City, NY": null,
+        "Los Angeles, CA": null,
         "Detroit, MI": null,
         "San Francisco, CA": null,
         "Boston, MA": null,
