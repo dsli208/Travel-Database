@@ -63,25 +63,24 @@ INSERT INTO travellite_train VALUES (14, 'Virgin Trains', 'Las Vegas', 'Los Ange
 INSERT INTO travellite_train VALUES (15, 'Union Pacific', 'Las Vegas', 'Los Angeles', '2018-08-10', '20:00:00', 79.00, 108.00, 176.00, 382, 78, 22);
 
 
+-- 3 hotels in NYC
+-- 4 hotels in Boston
+-- 3 hotels in LA
 
-INSERT INTO travellite_hotel VALUES (1, 239.99, 'West 46th Street and Broadway', 'New York City', 'NY Marriott Marquis');
-INSERT INTO travellite_hotel VALUES (2, 202.00, 'East 94th and 2nd Ave.', 'New York City', 'Marmara Manhattan Hotel');
---todo: all hotels below this line
-INSERT INTO travellite_hotel VALUES (3, 239.99, 'West 46th Street and Broadway', 'New York City', 'NY Marriott Marquis');
-INSERT INTO travellite_hotel VALUES (4, 202.00, 'East 94th and 2nd Ave.', 'New York City', 'Marmara Manhattan Hotel');
-INSERT INTO travellite_hotel VALUES (5, 239.99, 'West 46th Street and Broadway', 'New York City', 'NY Marriott Marquis');
-INSERT INTO travellite_hotel VALUES (6, 202.00, 'East 94th and 2nd Ave.', 'New York City', 'Marmara Manhattan Hotel');
-INSERT INTO travellite_hotel VALUES (7, 239.99, 'West 46th Street and Broadway', 'New York City', 'NY Marriott Marquis');
-INSERT INTO travellite_hotel VALUES (8, 202.00, 'East 94th and 2nd Ave.', 'New York City', 'Marmara Manhattan Hotel');
-INSERT INTO travellite_hotel VALUES (9, 239.99, 'West 46th Street and Broadway', 'New York City', 'NY Marriott Marquis');
-INSERT INTO travellite_hotel VALUES (10, 202.00, 'East 94th and 2nd Ave.', 'New York City', 'Marmara Manhattan Hotel');
-INSERT INTO travellite_hotel VALUES (11, 239.99, 'West 46th Street and Broadway', 'New York City', 'NY Marriott Marquis');
-INSERT INTO travellite_hotel VALUES (12, 202.00, 'East 94th and 2nd Ave.', 'New York City', 'Marmara Manhattan Hotel');
-INSERT INTO travellite_hotel VALUES (13, 239.99, 'West 46th Street and Broadway', 'New York City', 'NY Marriott Marquis');
-INSERT INTO travellite_hotel VALUES (14, 202.00, 'East 94th and 2nd Ave.', 'New York City', 'Marmara Manhattan Hotel');
-INSERT INTO travellite_hotel VALUES (15, 239.99, 'West 46th Street and Broadway', 'New York City', 'NY Marriott Marquis');
-INSERT INTO travellite_hotel VALUES (16, 202.00, 'East 94th and 2nd Ave.', 'New York City', 'Marmara Manhattan Hotel');
+INSERT INTO travellite_hotel VALUES (1, 254.99, 'West 46th St. & Broadway', 'New York City', 'NY Marriott Marquis');
+INSERT INTO travellite_hotel VALUES (2, 202.00, 'East 94th St. & 2nd Ave.', 'New York City', 'Marmara Manhattan Hotel');
+INSERT INTO travellite_hotel VALUES (3, 239.99, 'Gansevoort St. & 9th Ave.', 'New York City', 'Hotel Gansevoort');
+INSERT INTO travellite_hotel VALUES (4, 150.00, '500 Commonwealth Ave.', 'Boston', 'Hotel Commonwealth');
+INSERT INTO travellite_hotel VALUES (5, 138.99, '107 Merrimac St.', 'Boston', 'The Boxer');
+INSERT INTO travellite_hotel VALUES (6, 95.99, '50 Park Plaza', 'Boston', 'Boston Park Plaza');
+INSERT INTO travellite_hotel VALUES (7, 216.00, '510 Atlantic Ave.', 'Boston', 'InterContinental Boston');
+INSERT INTO travellite_hotel VALUES (8, 101.00, 'West 8th St. & South Olive St.', 'Los Angeles', 'Freehand Los Angeles');
+INSERT INTO travellite_hotel VALUES (9, 192.99, '7th St. & South Olive St.', 'Los Angeles', 'The Los Angeles Athletic Club');
+INSERT INTO travellite_hotel VALUES (10, 136.00, '6th St. & South Westlake Ave.', 'Los Angeles', 'Holiday Inn Express & Suites Los Angeles');
 
+
+-- 3 attractions in NYC
+-- 3 attractions in Chicago
 
 INSERT INTO travellite_attraction VALUES (1, 'New York City', 'Empire State Building', 'Located in the center of Midtown Manhattan, its 86th and 102nd floor observatories provide unforgettable 360-degree views of New York City and beyond. Whether you’re in town for a week or a day, no visit to NYC is complete without experiencing the top of the Empire State Building.', 'NewYorkCity1.jpg');
 INSERT INTO travellite_attraction VALUES (2, 'New York City', 'World Trade Center', 'Bigger.  Bolder.  Better than ever.  The revitalized World Trade Center is Manhattan’s new center of gravity - a vision of tomorrow, realized today.', 'NewYorkCity2.jpg');
