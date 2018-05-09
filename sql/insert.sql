@@ -1,11 +1,10 @@
---INSERT INTO travellite_user VALUES (
-
 INSERT INTO travellite_location VALUES (1, 'New York City', 'NY', 'NewYorkCity.jpg');
 INSERT INTO travellite_location VALUES (2, 'Chicago', 'IL', 'Chicago.jpg');
 INSERT INTO travellite_location VALUES (3, 'Los Angeles', 'CA', 'LosAngeles.jpg');
 INSERT INTO travellite_location VALUES (4, 'Boston', 'MA', 'Boston.jpg');
 INSERT INTO travellite_location VALUES (5, 'Las Vegas', 'NV', 'LasVegas.jpg');
 INSERT INTO travellite_location VALUES (6, 'Atlanta', 'GA', 'Atlanta.jpg');
+
 
 -- 3 flights NY -> LA on 5/29
 -- 3 flights NY -> LA on 5/30
@@ -38,23 +37,31 @@ INSERT INTO travellite_flight VALUES (18, 'Delta Air Lines', 'Boston', 'Chicago'
 INSERT INTO travellite_flight VALUES (19, 'JetBlue', 'Boston', 'Chicago', '2018-09-22', '23:15:00', 93.00, 154.00, 410.50, 72, 16, 3);
 INSERT INTO travellite_flight VALUES (20, 'Delta Air Lines', 'Chicago', 'New York City', '2018-09-27', '16:30:00', 93.50, 172.00, 422.00, 69, 19, 14);
 
-INSERT INTO travellite_train VALUES (1, 'Amtrak', 'New York City', 'Boston', '2018-05-29', '15:30:00', 103.90, 203.22, 273.48, 240, 112, 53);
-INSERT INTO travellite_train VALUES (2, 'Amtrak', 'New York City', 'Boston', '2018-06-04', '15:30:00', 83.90, 128.14, 203.43, 312, 362, 62);
-INSERT INTO travellite_train VALUES (3, 'Norfolk Southern', 'New York City', 'Boston', '2018-06-04', '12:30:00', 53.90, 100.54, 183.10, 412, 62, 20);
-INSERT INTO travellite_train VALUES (4, 'Union Pacific', 'Las Vegas', 'Los Angeles', '2018-08-02', '19:45:00', 200.45, 403.22, 900.08, 40, 6, 10);
---todo: all trains below this line
-INSERT INTO travellite_train VALUES (5, 'Amtrak', 'New York City', 'Boston', '2018-05-29', '15:30:00', 103.90, 203.22, 273.48, 240, 112, 53);
-INSERT INTO travellite_train VALUES (6, 'Amtrak', 'New York City', 'Boston', '2018-06-04', '15:30:00', 83.90, 128.14, 203.43, 312, 362, 62);
-INSERT INTO travellite_train VALUES (7, 'Norfolk Southern', 'New York City', 'Boston', '2018-06-04', '12:30:00', 53.90, 100.54, 183.10, 412, 62, 20);
-INSERT INTO travellite_train VALUES (8, 'Union Pacific', 'Las Vegas', 'Los Angeles', '2018-08-02', '19:45:00', 200.45, 403.22, 900.08, 40, 6, 10);
-INSERT INTO travellite_train VALUES (9, 'Amtrak', 'New York City', 'Boston', '2018-05-29', '15:30:00', 103.90, 203.22, 273.48, 240, 112, 53);
-INSERT INTO travellite_train VALUES (10, 'Amtrak', 'New York City', 'Boston', '2018-06-04', '15:30:00', 83.90, 128.14, 203.43, 312, 362, 62);
-INSERT INTO travellite_train VALUES (11, 'Norfolk Southern', 'New York City', 'Boston', '2018-06-04', '12:30:00', 53.90, 100.54, 183.10, 412, 62, 20);
-INSERT INTO travellite_train VALUES (12, 'Union Pacific', 'Las Vegas', 'Los Angeles', '2018-08-02', '19:45:00', 200.45, 403.22, 900.08, 40, 6, 10);
-INSERT INTO travellite_train VALUES (13, 'Amtrak', 'New York City', 'Boston', '2018-05-29', '15:30:00', 103.90, 203.22, 273.48, 240, 112, 53);
-INSERT INTO travellite_train VALUES (14, 'Amtrak', 'New York City', 'Boston', '2018-06-04', '15:30:00', 83.90, 128.14, 203.43, 312, 362, 62);
-INSERT INTO travellite_train VALUES (15, 'Norfolk Southern', 'New York City', 'Boston', '2018-06-04', '12:30:00', 53.90, 100.54, 183.10, 412, 62, 20);
-INSERT INTO travellite_train VALUES (16, 'Union Pacific', 'Las Vegas', 'Los Angeles', '2018-08-02', '19:45:00', 200.45, 403.22, 900.08, 40, 6, 10);
+
+-- 4 trains NY -> Boston on 06/04
+-- 2 trains NY -> Boston on 06/05
+-- 3 trains Boston -> NY on 06/14
+-- 3 trains LA -> Las Vegas on 08/03
+-- 5 trains Las Vegas -> LA on 08/10
+
+INSERT INTO travellite_train VALUES (1, 'Amtrak', 'New York City', 'Boston', '2018-06-04', '07:30:00', 88.50, 103.00, 202.00, 240, 112, 45);
+INSERT INTO travellite_train VALUES (2, 'Amtrak', 'New York City', 'Boston', '2018-06-04', '12:30:00', 101.00, 118.50, 213.00, 312, 162, 53);
+INSERT INTO travellite_train VALUES (3, 'Norfolk Southern', 'New York City', 'Boston', '2018-06-04', '15:30:00', 54.00, 100.50, 183.00, 412, 62, 20);
+INSERT INTO travellite_train VALUES (4, 'Amtrak', 'New York City', 'Boston', '2018-06-04', '19:45:00', 93.50, 103.50, 200.00, 0, 6, 10);
+INSERT INTO travellite_train VALUES (5, 'Amtrak', 'New York City', 'Boston', '2018-06-05', '09:45:00', 87.50, 105.50, 190.00, 40, 6, 10);
+INSERT INTO travellite_train VALUES (6, 'Norfolk Southern', 'New York City', 'Boston', '2018-06-05', '11:30:00', 64.00, 90.50, 176.00, 412, 62, 20);
+INSERT INTO travellite_train VALUES (7, 'Amtrak', 'Boston', 'New York City', '2018-06-14', '10:30:00', 103.00, 128.00, 210.00, 299, 78, 52);
+INSERT INTO travellite_train VALUES (8, 'Norfolk Southern', 'Boston', 'New York City', '2018-06-14', '14:30:00', 85.00, 128.00, 203.50, 232, 42, 36);
+INSERT INTO travellite_train VALUES (9, 'Amtrak', 'Boston', 'New York City', '2018-06-14', '16:45:00', 110.00, 132.00, 213.00, 287, 62, 59);
+INSERT INTO travellite_train VALUES (10, 'Union Pacific', 'Los Angeles', 'Las Vegas', '2018-08-03', '08:45:00', 74.00, 100.50, 193.00, 412, 62, 21);
+INSERT INTO travellite_train VALUES (11, 'Virgin Trains', 'Los Angeles', 'Las Vegas', '2018-08-03', '09:30:00', 54.00, 105.00, 183.00, 400, 72, 13);
+INSERT INTO travellite_train VALUES (12, 'Union Pacific', 'Los Angeles', 'Las Vegas', '2018-08-03', '12:45:00', 83.00, 113.00, 203.00, 382, 59, 20);
+INSERT INTO travellite_train VALUES (13, 'Union Pacific', 'Las Vegas', 'Los Angeles', '2018-08-10', '09:00:00', 78.00, 109.50, 188.00, 388, 60, 19);
+INSERT INTO travellite_train VALUES (14, 'Virgin Trains', 'Las Vegas', 'Los Angeles', '2018-08-10', '12:45:00', 61.00, 99.50, 163.00, 409, 80, 17);
+INSERT INTO travellite_train VALUES (15, 'Union Pacific', 'Las Vegas', 'Los Angeles', '2018-08-10', '15:00:00', 80.00, 100.00, 179.00, 394, 59, 30);
+INSERT INTO travellite_train VALUES (14, 'Virgin Trains', 'Las Vegas', 'Los Angeles', '2018-08-10', '16:45:00', 73.00, 96.00, 163.00, 419, 80, 18);
+INSERT INTO travellite_train VALUES (15, 'Union Pacific', 'Las Vegas', 'Los Angeles', '2018-08-10', '20:00:00', 79.00, 108.00, 176.00, 382, 78, 22);
+
 
 
 INSERT INTO travellite_hotel VALUES (1, 239.99, 'West 46th Street and Broadway', 'New York City', 'NY Marriott Marquis');
@@ -76,8 +83,6 @@ INSERT INTO travellite_hotel VALUES (15, 239.99, 'West 46th Street and Broadway'
 INSERT INTO travellite_hotel VALUES (16, 202.00, 'East 94th and 2nd Ave.', 'New York City', 'Marmara Manhattan Hotel');
 
 
---INSERT INTO travellite_payment VALUES (
-
 INSERT INTO travellite_attraction VALUES (1, 'New York City', 'Empire State Building', 'Located in the center of Midtown Manhattan, its 86th and 102nd floor observatories provide unforgettable 360-degree views of New York City and beyond. Whether you’re in town for a week or a day, no visit to NYC is complete without experiencing the top of the Empire State Building.', 'NewYorkCity1.jpg');
 INSERT INTO travellite_attraction VALUES (2, 'New York City', 'World Trade Center', 'Bigger.  Bolder.  Better than ever.  The revitalized World Trade Center is Manhattan’s new center of gravity - a vision of tomorrow, realized today.', 'NewYorkCity2.jpg');
 INSERT INTO travellite_attraction VALUES (3, 'New York City', 'Central Park', 'Set in the middle of bustling Manhattan, Central Park's grounds serve as a safe haven, not only for athletes, daydreamers, musicians, and strollers, but also for teems of migratory birds each year.', 'NewYorkCity3.jpg');
@@ -96,6 +101,3 @@ INSERT INTO travellite_attraction VALUES (15, 'Las Vegas', 'MGM Grand', 'todo', 
 INSERT INTO travellite_attraction VALUES (16, 'Atlanta', 'World of Coca Cola', 'todo', 'Atlanta1.jpg');
 INSERT INTO travellite_attraction VALUES (17, 'Atlanta', 'CNN Center', 'todo', 'Atlanta2.jpg');
 INSERT INTO travellite_attraction VALUES (18, 'Atlanta', 'Olympic Park', 'todo', 'Atlanta3.jpg');
-
---INSERT INTO travellite_history VALUES (
-
